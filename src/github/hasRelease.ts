@@ -18,6 +18,7 @@ export async function hasRelease<E>({
 
     return false;
   } catch (error) {
+    console.log(error.status);
     return error.status === 404;
   }
 }
