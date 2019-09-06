@@ -6,7 +6,7 @@ export interface MilestoneEvent {
     created_at: string;
     description: string;
     number: number;
-    open_isues: number;
+    open_issues: number;
     title: string;
     updated_at: string;
   };
