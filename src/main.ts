@@ -25,7 +25,6 @@ async function run() {
 
     const version = context.event.milestone.title;
     const openIssues = context.event.milestone.open_issues;
-    console.log('openIssues', openIssues);
 
     if (!semver.valid(version)) {
       throw new Error(
