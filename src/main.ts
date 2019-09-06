@@ -26,6 +26,11 @@ async function run() {
     const version = context.event.milestone.title;
     const openIssues = context.event.milestone.open_issues;
 
+    await setMilestoneState({
+      context,
+      state: 'open'
+    });
+
     if (!semver.valid(version)) {
       throw new Error(
         `The title is no valid semver version. Please fix. The title is: ${version}`
