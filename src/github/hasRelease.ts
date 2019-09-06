@@ -9,11 +9,15 @@ export async function hasRelease<E>({
 }) {
   const [owner, repo] = context.repository.split('/');
 
-  const result = await github.repos.getReleaseByTag({
-    owner,
-    repo,
-    tag: version
-  });
+  try {
+    const result = await github.repos.getReleaseByTag({
+      owner,
+      repo,
+      tag: version
+    });
 
-  return result.status === 404;
+    return result.status === 404;
+  } catch (error) {
+    console.log(error);
+  }
 }
