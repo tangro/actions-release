@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import { GitHubContext, setStatus } from '@tangro/tangro-github-toolkit';
+import { GitHubContext } from '@tangro/tangro-github-toolkit';
 import semver from 'semver';
 
 import { MilestoneEvent } from './types';
@@ -26,24 +26,10 @@ async function run() {
     const version = context.event.milestone.title;
     const openIssues = context.event.milestone.open_isues;
     if (!semver.valid(version)) {
-      await setStatus({
-        context,
-        step: 'release',
-        state: 'failure',
-        description: 'Title is not a valid semver version'
-      });
-
       throw new Error(
         `The title is no valid semver version. Please fix. The title is: ${version}`
       );
     } else if (openIssues > 0) {
-      await setStatus({
-        context,
-        step: 'release',
-        state: 'failure',
-        description: 'Close the open issues/PRs first'
-      });
-
       if (openIssues > 1) {
         throw new Error(
           `There are ${openIssues} open issues or pull requests for this milestone. Please close them first.`
@@ -54,24 +40,11 @@ async function run() {
         );
       }
     } else if (hasRelease({ context, version })) {
-      await setStatus({
-        context,
-        step: 'release',
-        state: 'failure',
-        description: `There already exists a release: ${version}`
-      });
-
       throw new Error(`
         There already exists a release with the version ${version}. Please remove this release, or choose a different version.
       `);
     } else if (core.getInput('step') === 'release') {
     } else {
-      await setStatus({
-        context,
-        step: 'release',
-        state: 'pending',
-        description: 'currently running'
-      });
     }
   } catch (error) {
     await setMilestoneState({
