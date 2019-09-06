@@ -1,10 +1,11 @@
-name: 'Tangro Actions template'
-description: 'Add a description'
+name: 'actions-release'
+description: 'Run a release script when a milestone is closed'
 author: 'tangro'
 inputs:
-  example-input:
-    description: 'Add more inputs here'
-    required: true
+  step:
+    description: 'The step of the release-flow. Either "check" or "release"'
+    required: false
+    default: 'check'
 runs:
   using: 'node12'
   main: 'dist/index.js'
