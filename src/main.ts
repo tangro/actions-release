@@ -40,9 +40,9 @@ async function run() {
           `There ist one open issue or pull request for this milestone. Please close it first.`
         );
       }
-    } else if (hasRelease({ context, version })) {
+    } else if (await hasRelease({ context, version })) {
       throw new Error(`
-        There already exists a release with the version ${version}. Please remove this release, or choose a different version.
+        There already exists a release with a version ${version}. Please remove this release, or choose a different version.
       `);
     } else if (core.getInput('step') === 'release') {
     } else {

@@ -16,12 +16,8 @@ export async function hasRelease<E>({
       tag: version
     });
 
-    console.log('result', result.status !== 404);
     return result.status !== 404;
   } catch (error) {
-    console.log('error', error.status);
-    console.log('error', error.status !== 404);
-    console.log('error', JSON.stringify(error, null, 2));
     return error.status !== 404;
   }
 }
