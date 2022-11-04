@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: go to release branch
         run: git checkout -B $(node -p -e "require('./package.json').version")
       - name: merge with master

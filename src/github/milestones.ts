@@ -1,19 +1,19 @@
-import { GitHubContext, github } from '@tangro/tangro-github-toolkit';
-import { MilestoneEvent } from '../types';
+import { GitHubContext, github } from "@tangro/tangro-github-toolkit";
+import { MilestoneEvent } from "../types";
 
 export async function setMilestoneState({
   context,
-  state
+  state,
 }: {
   context: GitHubContext<MilestoneEvent>;
-  state: 'open' | 'closed';
+  state: "open" | "closed";
 }) {
-  const [owner, repo] = context.repository.split('/');
+  const [owner, repo] = context.repository.split("/");
 
-  await github.issues.updateMilestone({
+  await github.rest.issues.updateMilestone({
     milestone_number: context.event.milestone.number,
     owner,
     repo,
-    state
+    state,
   });
 }

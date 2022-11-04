@@ -1,23 +1,23 @@
-import { GitHubContext, github } from '@tangro/tangro-github-toolkit';
+import { GitHubContext, github } from "@tangro/tangro-github-toolkit";
 
 export async function hasRelease<E>({
   context,
-  version
+  version,
 }: {
   context: GitHubContext<E>;
   version: string;
 }) {
-  const [owner, repo] = context.repository.split('/');
+  const [owner, repo] = context.repository.split("/");
 
   try {
-    const result = await github.repos.getReleaseByTag({
+    const result = await github.rest.repos.getReleaseByTag({
       owner,
       repo,
-      tag: version
+      tag: version,
     });
 
-    return result.status !== 404;
+    return result.status === 200;
   } catch (error) {
-    return error.status !== 404;
+    return true;
   }
 }
